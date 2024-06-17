@@ -1,0 +1,12 @@
+APP_PORT: 9990
+BASE_URL_PATH: "/base-project"
+DB_SSL_MODE: "disable"
+DB_USER: localhost
+DB_HOST: localhost
+DB_PASSWORD: postgres
+DB_NAME: db_users
+DB_DEBUG: true
+DB_PORT: 5432
+
+# RabbitMQ
+RABBIT_URL: "amqp://guest:guest@localhost:5672/"
