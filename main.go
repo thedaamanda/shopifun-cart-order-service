@@ -1,11 +1,12 @@
 package main
 
 import (
-	"base-project/config"
-	"base-project/routes"
+	"cart-order-service/config"
+	cartHandler "cart-order-service/handlers/cart"
+	"cart-order-service/repository/cart"
+	"cart-order-service/routes"
+	cartUsecase "cart-order-service/usecase/cart"
 	"database/sql"
-
-	"github.com/thedevsaddam/renderer"
 )
 
 func main() {
@@ -26,12 +27,16 @@ func main() {
 	}
 	defer sqlDb.Close()
 
-	render := renderer.New()
-	routes := setupRoutes(render, sqlDb)
+	routes := setupRoutes(sqlDb)
 	routes.Run(cfg.AppPort)
 }
 
-func setupRoutes(render *renderer.Render, myDb *sql.DB) *routes.Routes {
+func setupRoutes(db *sql.DB) *routes.Routes {
+	cartRepository := cart.NewStore(db)
+	cartUseCase := cartUsecase.NewCart(cartRepository)
+	cartHandler := cartHandler.NewHandler(cartUseCase)
 
-	return &routes.Routes{}
+	return &routes.Routes{
+		Cart: cartHandler,
+	}
 }

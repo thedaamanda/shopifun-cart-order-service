@@ -7,17 +7,20 @@ import (
 )
 
 type Config struct {
-	AppPort      string
-	LogLevel     string
-	LogAddSource bool
-	DBHost       string
-	DBPort       int
-	DBUser       string
-	DBPassword   string
-	DBName       string
-	DBDebug      bool
-	BaseURLPath  string
-	DBSSLMode    string
+	AppPort          string
+	LogLevel         string
+	LogAddSource     bool
+	DBHost           string
+	DBPort           int
+	DBUser           string
+	DBPassword       string
+	DBName           string
+	DBDebug          bool
+	BaseURLPath      string
+	DBSSLMode        string
+	ElasticSearchUrl string
+	ElasticUsername  string
+	ElasticPassword  string
 }
 
 func LoadConfig() (*Config, error) {
@@ -33,15 +36,18 @@ func LoadConfig() (*Config, error) {
 	}
 
 	config := &Config{
-		AppPort:     viper.GetString("APP_PORT"),
-		BaseURLPath: viper.GetString("BASE_URL_PATH"),
-		DBSSLMode:   viper.GetString("DB_SSL_MODE"),
-		DBUser:      viper.GetString("DB_USER"),
-		DBHost:      viper.GetString("DB_HOST"),
-		DBPassword:  viper.GetString("DB_PASSWORD"),
-		DBName:      viper.GetString("DB_NAME"),
-		DBDebug:     viper.GetBool("DB_DEBUG"),
-		DBPort:      viper.GetInt("DB_PORT"),
+		AppPort:          viper.GetString("APP_PORT"),
+		BaseURLPath:      viper.GetString("BASE_URL_PATH"),
+		DBSSLMode:        viper.GetString("DB_SSL_MODE"),
+		DBUser:           viper.GetString("DB_USER"),
+		DBHost:           viper.GetString("DB_HOST"),
+		DBPassword:       viper.GetString("DB_PASSWORD"),
+		DBName:           viper.GetString("DB_NAME"),
+		DBDebug:          viper.GetBool("DB_DEBUG"),
+		DBPort:           viper.GetInt("DB_PORT"),
+		ElasticSearchUrl: viper.GetString("ELASTIC_SEARCH_URL"),
+		ElasticUsername:  viper.GetString("ELASTIC_SEARCH_USERNAME"),
+		ElasticPassword:  viper.GetString("ELASTIC_SEARCH_PASSWORD"),
 	}
 
 	return config, nil
