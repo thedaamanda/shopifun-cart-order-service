@@ -4,7 +4,6 @@ import (
 	"cart-order-service/helper"
 	model "cart-order-service/repository/models"
 	"encoding/json"
-	"log"
 	"net/http"
 
 	"github.com/google/uuid"
@@ -100,7 +99,6 @@ func (h *Handler) GetCartByUserID(w http.ResponseWriter, r *http.Request) {
 		helper.HandleResponse(w, http.StatusBadRequest, err.Error())
 		return
 	}
-	log.Println(uid)
 
 	var bReq model.GetCartRequest
 	if err := json.NewDecoder(r.Body).Decode(&bReq); err != nil {
