@@ -32,7 +32,7 @@ func (r *Routes) SetupBaseURL() {
 	}
 }
 
-func (r *Routes) setupCartRouting() {
+func (r *Routes) cartRoutes() {
 	r.Router.HandleFunc("GET /cart/{user_id}", middleware.ApplyMiddleware(r.Cart.GetCartByUserID, middleware.EnabledCors, middleware.LoggerMiddleware()))
 	r.Router.HandleFunc("PUT /cart/update/{user_id}", middleware.ApplyMiddleware(r.Cart.AddCart, middleware.EnabledCors, middleware.LoggerMiddleware()))
 	r.Router.HandleFunc("POST /cart/add", middleware.ApplyMiddleware(r.Cart.AddCart, middleware.EnabledCors, middleware.LoggerMiddleware()))
@@ -42,7 +42,7 @@ func (r *Routes) setupCartRouting() {
 func (r *Routes) SetupRouter() {
 	r.Router = http.NewServeMux()
 	r.SetupBaseURL()
-	r.setupCartRouting()
+	r.cartRoutes()
 }
 
 func (r *Routes) Run(port string) {
