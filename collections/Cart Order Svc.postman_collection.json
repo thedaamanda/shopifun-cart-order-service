@@ -1,0 +1,185 @@
+{
+	"info": {
+		"_postman_id": "f7483277-79a6-4b01-9fe9-6a7cd795a421",
+		"name": "Cart Order Svc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23782154",
+		"_collection_link": "https://warped-moon-579958.postman.co/workspace/Eratani-Workspace~81bb18b1-9b2a-4822-8e88-dc1a676aef3b/collection/23782154-f7483277-79a6-4b01-9fe9-6a7cd795a421?action=share&source=collection_link&creator=23782154"
+	},
+	"item": [
+		{
+			"name": "Add cart Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": \"5e07efbc-b0dc-4b34-9f9e-038645d97622\",\n    \"product_id\": \"ebecbc2f-5b12-4edb-a0d7-dc13783c3f6a\",\n    \"Qty\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9993/cart/add",
+					"host": [
+						"localhost"
+					],
+					"port": "9993",
+					"path": [
+						"cart",
+						"add"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Add cart",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"5e07efbc-b0dc-4b34-9f9e-038645d97622\",\n    \"product_id\": \"ebecbc2f-5b12-4edb-a0d7-dc13783c3f6a\",\n    \"Qty\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9993/cart/add",
+							"host": [
+								"localhost"
+							],
+							"port": "9993",
+							"path": [
+								"cart",
+								"add"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "DELETE, POST, GET, OPTIONS, PUT, PATCH"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 29 Jun 2024 14:02:04 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "39"
+						}
+					],
+					"cookie": [],
+					"body": "\"270bd0ba-0449-4259-8dad-c306cb43f53a\""
+				}
+			]
+		},
+		{
+			"name": "Create order Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": \"550e8400-e29b-41d4-a716-446655440004\",\n    \"payment_type_id\": \"550e8400-e29b-41d4-a716-446655440030\",\n    \"order_number\": \"ORD006\",\n    \"total_price\": 25000,\n    \"status\": \"Pending\",\n    \"is_paid\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9993/order/create",
+					"host": [
+						"localhost"
+					],
+					"port": "9993",
+					"path": [
+						"order",
+						"create"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create order",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"550e8400-e29b-41d4-a716-446655440004\",\n    \"payment_type_id\": \"550e8400-e29b-41d4-a716-446655440030\",\n    \"order_number\": \"ORD006\",\n    \"total_price\": 25000,\n    \"status\": \"Pending\",\n    \"is_paid\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9993/order/create",
+							"host": [
+								"localhost"
+							],
+							"port": "9993",
+							"path": [
+								"order",
+								"create"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "DELETE, POST, GET, OPTIONS, PUT, PATCH"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 29 Jun 2024 14:35:21 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "39"
+						}
+					],
+					"cookie": [],
+					"body": "\"7587bf38-0000-4a68-aa4c-d708fe094e31\""
+				}
+			]
+		}
+	]
+}
