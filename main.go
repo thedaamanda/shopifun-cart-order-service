@@ -4,9 +4,15 @@ import (
 	"cart-order-service/config"
 	cartHandler "cart-order-service/handlers/cart"
 	"cart-order-service/repository/cart"
+	"cart-order-service/repository/order"
 	"cart-order-service/routes"
 	cartUsecase "cart-order-service/usecase/cart"
 	"database/sql"
+
+	orderHandler "cart-order-service/handlers/order"
+	orderUseCase "cart-order-service/usecase/order"
+
+	"github.com/go-playground/validator"
 )
 
 func main() {
@@ -27,16 +33,23 @@ func main() {
 	}
 	defer sqlDb.Close()
 
-	routes := setupRoutes(sqlDb)
+	validator := validator.New()
+
+	routes := setupRoutes(sqlDb, validator)
 	routes.Run(cfg.AppPort)
 }
 
-func setupRoutes(db *sql.DB) *routes.Routes {
+func setupRoutes(db *sql.DB, validator *validator.Validate) *routes.Routes {
 	cartRepository := cart.NewStore(db)
 	cartUseCase := cartUsecase.NewCart(cartRepository)
 	cartHandler := cartHandler.NewHandler(cartUseCase)
 
+	orderRepository := order.NewStore(db)
+	orderUseCase := orderUseCase.NewOrder(orderRepository)
+	orderHandler := orderHandler.NewHandler(orderUseCase, validator)
+
 	return &routes.Routes{
-		Cart: cartHandler,
+		Cart:  cartHandler,
+		Order: orderHandler,
 	}
 }
