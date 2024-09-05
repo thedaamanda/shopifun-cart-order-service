@@ -1,9 +1,9 @@
 APP_PORT: 9993
 BASE_URL_PATH: "/cart-order-service"
 DB_SSL_MODE: "disable"
-DB_USER: root
+DB_USER: postgres
 DB_HOST: localhost
-DB_PASSWORD: fatannajuda
-DB_NAME: db_order
+DB_PASSWORD: postgres
+DB_NAME: cart_order_service
 DB_DEBUG: true
 DB_PORT: 5432
