@@ -12,6 +12,7 @@ import (
 
 type orderDto interface {
 	CreateOrder(bReq model.Order) (*uuid.UUID, error)
+	UpdatePayment(bReq model.UpdateRequest) (*string, error)
 }
 
 type Handler struct {
@@ -48,4 +49,26 @@ func (h *Handler) CreateOrder(w http.ResponseWriter, r *http.Request) {
 	}
 
 	helper.HandleResponse(w, http.StatusCreated, bRes)
+}
+
+func (h *Handler) UpdateOrder(w http.ResponseWriter, r *http.Request) {
+	var bReq model.UpdateRequest
+	if err := json.NewDecoder(r.Body).Decode(&bReq); err != nil {
+		helper.HandleResponse(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if err := h.validator.Struct(&bReq); err != nil {
+		helper.HandleResponse(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	// payment success
+	message, err := h.order.UpdatePayment(bReq)
+	if err != nil {
+		helper.HandleResponse(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	helper.HandleResponse(w, http.StatusOK, message)
 }

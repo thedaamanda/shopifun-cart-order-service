@@ -9,6 +9,7 @@ import (
 type orderStore interface {
 	CreateOrder(bReq model.Order) (*uuid.UUID, *string, error)
 	CreateOrderItemsLogs(bReq model.OrderItemsLogs) (*string, error)
+	UpdateOrder(bReq model.UpdateRequest) (*string, error)
 }
 
 type order struct {
@@ -37,4 +38,25 @@ func (o *order) CreateOrder(bReq model.Order) (*uuid.UUID, error) {
 	}
 
 	return orderID, nil
+}
+
+func (o *order) UpdatePayment(bReq model.UpdateRequest) (*string, error) {
+	refCode, err := o.store.UpdateOrder(bReq)
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = o.store.CreateOrderItemsLogs(model.OrderItemsLogs{
+		OrderID:    bReq.OrderID,
+		RefCode:    *refCode,
+		FromStatus: model.OrderStatusPending,
+		ToStatus:   model.OrderStatusPaid,
+		Notes:      "Payment success",
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	updateOK := "Payment Success"
+	return &updateOK, nil
 }

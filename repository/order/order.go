@@ -105,3 +105,36 @@ func (o *store) CreateOrderItemsLogs(bReq model.OrderItemsLogs) (*string, error)
 
 	return &refCode, nil
 }
+
+func (o *store) UpdateOrder(bReq model.UpdateRequest) (*string, error) {
+	tx, err := o.db.Begin()
+	if err != nil {
+		return nil, err
+	}
+
+	queryUpdate := `
+		UPDATE orders SET
+			status = $1,
+			is_paid = $2, 
+			updated_at = NOW()
+		WHERE id = $3 RETURNING ref_code
+	`
+
+	var refCode string
+	if err := tx.QueryRow(
+		queryUpdate,
+		bReq.Status,
+		bReq.IsPaid,
+		bReq.OrderID,
+	).Scan(&refCode); err != nil {
+		tx.Rollback()
+		return nil, err
+	}
+
+	if err := tx.Commit(); err != nil {
+		tx.Rollback()
+		return nil, err
+	}
+
+	return &refCode, nil
+}
